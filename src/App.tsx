@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface IAppProps {
+  onSubmit: (e: React.FormEvent) => void;
 }
+
+const App: React.FC<IAppProps> = ({ onSubmit }) => {
+  const [name, setName] = React.useState("John Doe");
+
+  return (
+    <form className="App__input-container" onSubmit={onSubmit}>
+      <label htmlFor="input">First Name</label>
+      <input
+        id="input"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        name="firstName"
+      />
+      <button type="submit">Save</button>
+    </form>
+  );
+};
 
 export default App;
