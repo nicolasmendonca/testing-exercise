@@ -3,20 +3,28 @@ import React from "react";
 import { mount } from "enzyme";
 
 it("has John Doe as default value", () => {
-  // render the component
-  // take input value
-  // assert equals "John Doe"
+  const component = shallow(<App />);
+
+  expect(component.find("input").props().value).toEqual("John Doe");
 });
 
 it("changes the input value", () => {
-  // render the component
-  // query the input element
-  // trigger value change
-  // assert that the input value matches new value
+  const component = shallow(<App />);
+
+  component.find("input").simulate("change", { target: { value: "test" } });
+  expect(component.find("input").props().value).toEqual("test");
 });
 
 it("submits the form", () => {
-  // same as before
-  // trigger form submit (either with Enter key or 'Save' button)
-  // assert that the form is submitted
+  let isSubmitted = false;
+  const component = shallow(
+    <App
+      onSubmit={() => {
+        isSubmitted = true;
+      }}
+    />
+  );
+
+  component.find("form").simulate("submit");
+  expect(isSubmitted).toBe(true);
 });
